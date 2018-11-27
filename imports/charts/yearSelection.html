@@ -1,0 +1,32 @@
+<template name="yearSelection">
+
+    <div class="flex-menu">
+        <ul class=" flex-container">
+
+            {{#each charts}}
+            <li class="flex-item" data-year="{{year}}">{{year}}</li>
+            {{/each}}
+
+        </ul>
+    </div>
+
+    <div class="w3-row">
+        <div class="w3-half w3-center">
+
+            <div class="menu-toggle">
+                <a class="selectYear" href="#"><span>{{currentYear}}</span><i id="ySel" class="w3-margin-left fa fa-angle-double-down"></i></a>
+            </div>
+
+        </div>
+        <div class="w3-half w3-center">
+            {{#if currentUser }}
+            <input type="checkbox" id="toggleBtn" name="set-name" class="switch-input">
+            <label for="toggleBtn" class="switch-label"><span class="toggle--on">Private Charts (<span class="votCnt">3</span>
+                    Votings)</span><span class="toggle--off" style="color: rgb(71, 163, 218);">Offizielle Charts (<span
+                        class="votCnt">{{votingCount}}</span> Votings)</span></label>
+            {{/if}}
+        </div>
+    </div>
+
+
+</template>
