@@ -1,4 +1,6 @@
 import './songItems.html';
+/* import subtemplates */
+import './covers/coverselection.js';
 
 import {
     Charts
@@ -15,4 +17,12 @@ Template.songItems.helpers({
         return data.songs;
         }
     }
+});
+
+Template.songItems.events({
+
+    'click .openOverlay'(event, instance) {
+        document.getElementById('styledModal').showModal();
+    },
+
 });
