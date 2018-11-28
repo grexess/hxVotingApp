@@ -16,8 +16,4 @@ Template.charts.onCreated(function () {
     Session.set("imageOverlay", false);
 });
 
-Template.charts.helpers({
-    showImageOverlay: function(){
-        return Session.get('imageOverlay');
-      }
-})
+

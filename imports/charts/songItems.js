@@ -16,13 +16,18 @@ Template.songItems.helpers({
         if(data){
         return data.songs;
         }
-    }
+    },
+
+    showImageOverlay: function(){
+        return Session.get('imageOverlay');
+      }
 });
 
 Template.songItems.events({
 
     'click .openOverlay'(event, instance) {
-        document.getElementById('styledModal').showModal();
+        Session.set('currentSong', event.currentTarget.dataset.song - 1);
+        Session.set('imageOverlay', true);
     },
 
 });

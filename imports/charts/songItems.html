@@ -19,11 +19,16 @@
                     </div>
                 </div>
                 <div class="w3-col w3-display-container s1 m1 l1">
-                    <div class="w3-right w3-padding openOverlay"><i class="fa fa-angle-double-right fa-2x"></i></div>
+                    <div class="w3-right w3-padding openOverlay" data-song="{{pos}}"><i class="fa fa-angle-double-right fa-2x"></i></div>
                   </div>
             </div>
         </li>
         {{/each}}
     </ul>
+
+
+    {{#if showImageOverlay}}
+    {{ >coverselection}}
+    {{/if}}
 
 </template>
