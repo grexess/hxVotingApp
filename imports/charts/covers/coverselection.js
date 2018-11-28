@@ -2,26 +2,39 @@ import './coverselection.html';
 
 import {
     Charts
-  } from '../../collections/charts.js';
+} from '../../collections/charts.js';
 
 Template.coverselection.events({
 
-    'click .close'(event, instance) {
+    'click #closeImgModal'(event, instance) {
         Session.set('imageOverlay', false);
     },
+
+    'click #playPreview'() {
+
+        var myAudio = document.getElementById('previewAudio');
+
+        if (myAudio.paused == false) {
+            myAudio.pause();
+            $('#playPreview').removeClass('fa-pause');
+            $('#playPreview').addClass('fa-play');
+        } else {
+            myAudio.play();
+            $('#playPreview').removeClass('fa-play');
+            $('#playPreview').addClass('fa-pause');
+        }
+    }
 })
 
 Template.coverselection.helpers({
-  
-    imgUrl: function(){
 
-        var currentSong = Session.get("currentSong");
-        var year = Session.get("currentYear");
+    coverUrl: function () {
+        return Session.get('coverImages');
+    },
 
-        var songs = Charts.findOne({year:  year}).songs;
-        var song = {title: songs[currentSong].title,interpret:songs[currentSong].interpret};
-
-        return  Meteor.call('getCovers', year, song);
-      }
+    previewURL: function () {
+        return Session.get('previewURL');
+    },
 });
+
 

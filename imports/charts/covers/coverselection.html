@@ -3,12 +3,27 @@
   <div class="overlay"></div>
 
   <div class="modal w3-card-4">
-   <div class="w3-panel">
+    <span id="closeImgModal" class="w3-button w3-display-topright">&times;</span>
+    <div class="w3-panel w3-center">
+      <audio id="previewAudio">
+        <source src=" {{previewURL}}" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <i id="playPreview" class="fa fa-play fa-3x" aria-hidden="true"></i>
+    </div>
+    <div class="w3-panel">
+      <hr>
+    </div>
 
-      <img src="{{imgUrl}}" class="w3-round" alt="cover">   
-    
-      <button class="close">Okay</button>
-   </div> 
+    <div class="w3-panel">
+      <div class="w3-row">
+        {{#each value in coverUrl}}
+        <div class="w3-col s12 m4 l2 w3-center w3-padding">
+          <img src="{{value}}" class="w3-round" alt="cover">
+        </div>
+        {{/each}}
+      </div>
+    </div>
   </div>
 
 </template>
