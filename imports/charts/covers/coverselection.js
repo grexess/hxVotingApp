@@ -6,23 +6,30 @@ import {
 
 Template.coverselection.events({
 
+    'ended #previewAudio'() {
+        Session.set('isPlaying', false);
+        $('#playPreview').removeClass('fa-pause');
+        $('#playPreview').addClass('fa-play');
+    },
+
     'click #closeImgModal'(event, instance) {
         Session.set('imageOverlay', false);
     },
 
     'click #playPreview'() {
 
-        var myAudio = document.getElementById('previewAudio');
+       if(!Session.get('isPlaying')){
+        document.getElementById('previewAudio').play();
+        Session.set('isPlaying', true);
+        $('#playPreview').removeClass('fa-play');
+        $('#playPreview').addClass('fa-pause');
+       }else{
+        document.getElementById('previewAudio').pause();
+        Session.set('isPlaying', false);
+        $('#playPreview').removeClass('fa-pause');
+        $('#playPreview').addClass('fa-play');
+       }
 
-        if (myAudio.paused == false) {
-            myAudio.pause();
-            $('#playPreview').removeClass('fa-pause');
-            $('#playPreview').addClass('fa-play');
-        } else {
-            myAudio.play();
-            $('#playPreview').removeClass('fa-play');
-            $('#playPreview').addClass('fa-pause');
-        }
     }
 })
 
@@ -36,5 +43,3 @@ Template.coverselection.helpers({
         return Session.get('previewURL');
     },
 });
-
-

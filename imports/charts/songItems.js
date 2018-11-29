@@ -4,7 +4,7 @@ import './covers/coverselection.js';
 
 import {
     Charts
-  } from '../collections/charts.js';
+} from '../collections/charts.js';
 
 Template.songItems.onCreated(function () {
     //MiniMongo already loaded in parent template
@@ -12,15 +12,15 @@ Template.songItems.onCreated(function () {
 
 Template.songItems.helpers({
     songs() {
-        var data = Charts.findOne({year:  Session.get( "currentYear" )});
-        if(data){
-        return data.songs;
+        var data = Charts.findOne({ year: Session.get("currentYear") });
+        if (data) {
+            return data.songs;
         }
     },
 
-    showImageOverlay: function(){
+    showImageOverlay: function () {
         return Session.get('imageOverlay');
-      }
+    }
 });
 
 Template.songItems.events({
@@ -43,28 +43,32 @@ function getCovers() {
     var songs = Charts.findOne({ year: year }).songs;
     var song = { title: songs[currentSong].title, interpret: songs[currentSong].interpret };
 
-
     var url = "https://itunes.apple.com/search?term=" + encodeURI(song.interpret) + "%20" + encodeURI(song.title) + "&limit=25";
-    HTTP.call('GET', url, function (error, response) {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log(response);
-            if (response.statusCode === 200) {
-                if (response && response.data && response.data.results.length > 0) {
 
-                    Session.set('previewURL', response.data.results[0].previewUrl);
+    $.ajax({
+        type: 'GET',
+        url: url,
+        contentType: 'application/json',
+        dataType:'jsonp',
+        responseType:'application/json',
+        xhrFields: {
+          withCredentials: false
+        },
+        success: function(data) {
+            
+  
+            var aImgUrl = [];
 
-                    var aImgUrl = [];
-
-                    response.data.results.forEach(function (url) {
-                        if (!aImgUrl.includes(url.artworkUrl100)) {
-                            aImgUrl.push(url.artworkUrl100);
-                        }
-                    });
-                    Session.set('coverImages', aImgUrl);
+            data.results.forEach(function (url) {
+                if (!aImgUrl.includes(url.artworkUrl100)) {
+                    aImgUrl.push(url.artworkUrl100);
                 }
-            }
+            });
+            Session.set('coverImages', aImgUrl);
+            Session.set('previewURL', data.results[0].previewUrl);
+        },
+        error: function(error) {
+            Session.set('coverImages', []);
         }
-    });
+      });
 }

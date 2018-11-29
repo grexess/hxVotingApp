@@ -5,8 +5,8 @@
   <div class="modal w3-card-4">
     <span id="closeImgModal" class="w3-button w3-display-topright">&times;</span>
     <div class="w3-panel w3-center">
-      <audio id="previewAudio">
-        <source src=" {{previewURL}}" type="audio/mpeg">
+      <audio preload="auto" id="previewAudio" src="{{previewURL}}">
+        <!--  --><source src=" {{previewURL}}" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
       <i id="playPreview" class="fa fa-play fa-3x" aria-hidden="true"></i>
