@@ -6,7 +6,11 @@
 
                 {{> yearSelection}}
 
+                {{#if showVotings}}
+                {{> votingItems}}
+                {{else}}
                 {{> songItems}}
+                {{/if}}
 
         </div>
 </template>

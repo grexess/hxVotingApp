@@ -5,22 +5,30 @@
         <li class="w3-bar">
             <div class="w3-row">
                 <div class="w3-col s2 m1 l1">
-                    <div class="w3-center w3-xlarge w3-padding-small">{{pos}}
+                    <div class="w3-center w3-xlarge w3-padding-small" style="background-color: {{getColor pos}}">{{pos}}
                     </div>
                 </div>
-                <div class="w3-col s7 m9 l9">
+                <div class="w3-col s6 m9 l9">
                     <div class="">
                         <div class="w3-left w3-padding"><span class="w3-small"><b>{{interpret}}</b></span><br><span>{{title}}</span></div>
                     </div>
+                    {{#if currentUser }}
+                    <br>
+                    <div class="w3-bar w3-left w3-border-top">
+                        <div class="w3-bar-item"><input class="w3-radio" type="radio" name="top1" value="{{pos}}" checked={{setChecked pos "top1" }}><label>myTop1</label></div>
+                        <div class="w3-bar-item"><input class="w3-radio" type="radio" name="top2" value="{{pos}}" checked={{setChecked pos "top2" }}><label>myTop2</label></div>
+                        <div class="w3-bar-item"><input class="w3-radio" type="radio" name="top3" value="{{pos}}" checked={{setChecked pos "top3" }}><label>myTop3</label></div>
+                    </div>
+                    {{/if}}
                 </div>
                 <div class="w3-col s2 m1 l1 w3-display-container" style="height:100%;">
                     <div class="w3-center w3-padding">
                         <img id="imgPos1" style="max-width: 50px;" src="/cd.png" alt="noCover">
                     </div>
                 </div>
-                <div class="w3-col w3-display-container s1 m1 l1">
+                <div class="w3-col w3-display-container s2 m1 l1">
                     <div class="w3-right w3-padding openOverlay" data-song="{{pos}}"><i class="fa fa-angle-double-right fa-2x"></i></div>
-                  </div>
+                </div>
             </div>
         </li>
         {{/each}}

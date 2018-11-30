@@ -1,0 +1,22 @@
+<template name="votingItems">
+
+   <ul class="w3-ul w3-card-4 w3-hoverable">
+      {{#each votingItems}}
+      <li class="w3-bar">
+         <div class="w3-row w3-panel">
+            <div class="w3-col w3-center s1 m1 l1">
+               <div class="w3-xlarge w3-center">{{place}}<br><span class="w3-small">({{chartpos}})</span></div>
+            </div>
+            <div class="w3-col s10 m10 l6">
+               <div><span class="w3-small"><b>{{interpret}}</b></span><br><span>{{title}}</span></div>
+            </div>
+            <!--<div id="img' + idx + '" class="w3-col w3-center s1 m1 l1"><img class="coverimg" src="' + value.img + '" alt="noCover" /></div>-->
+            <div class="w3-col w3-center s12 m4 l3 w3-tiny">
+               <div class="w3-col s6">Score<br><b>{{score}}</b></div>
+               <div class="w3-col s6">Voted<br><b><span>{{votings}}</span></b></div>
+            </div>
+         </div>
+      </li>
+      {{/each}}
+   </ul>
+</template>

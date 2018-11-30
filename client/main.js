@@ -10,3 +10,10 @@ import {
 import '../imports/charts/charts.js';
 
 import './main.html';
+
+
+Accounts.onLogin(function (user) {
+  if (user.type === "password") {
+    $('#id01').hide();
+  }
+})

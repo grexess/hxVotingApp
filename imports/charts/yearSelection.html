@@ -21,12 +21,10 @@
         <div class="w3-half w3-center">
             {{#if currentUser }}
             <input type="checkbox" id="toggleBtn" name="set-name" class="switch-input">
-            <label for="toggleBtn" class="switch-label"><span class="toggle--on">Private Charts (<span class="votCnt">3</span>
+            <label for="toggleBtn" class="switch-label"><span class="toggle--on">Private Charts (<span class="votCnt">{{votingCount}}</span>
                     Votings)</span><span class="toggle--off" style="color: rgb(71, 163, 218);">Offizielle Charts (<span
                         class="votCnt">{{votingCount}}</span> Votings)</span></label>
-            {{/if}}
+                        {{/if}}
         </div>
     </div>
-
-
 </template>

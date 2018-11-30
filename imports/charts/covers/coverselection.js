@@ -35,6 +35,14 @@ Template.coverselection.events({
 
 Template.coverselection.helpers({
 
+    title: function () {
+        return Session.get('title');
+    },
+
+    interpret:  function () {
+        return Session.get('interpret');
+    },
+
     coverUrl: function () {
         return Session.get('coverImages');
     },
