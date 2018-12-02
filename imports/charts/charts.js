@@ -1,10 +1,5 @@
 import './charts.html';
 
-/*import login templates */
-import '../login/login.js';
-import '../login/custom.js';
-import '../login/customInput.js';
-import '../login/customSubmit.js';
 
 /* Import Template Scripts */
 import './header.js';
@@ -12,10 +7,7 @@ import './songItems.js';
 import './votingItems.js';
 import './yearSelection.js';
 
-Template['override-at_form'].replaces('atForm');
-Template['override-atTextInput'].replaces('atTextInput');
-Template['override-atPwdFormBtn'].replaces('atPwdFormBtn');
-
+import './search/search.js';
 
 Template.charts.onCreated(function () {
 
@@ -27,12 +19,18 @@ Template.charts.onCreated(function () {
     Session.set("currentYear", "2017");
     Session.set("imageOverlay", false);
     Session.set("showVotings", false);
+    Session.set("showSearch", false);
 });
 
 Template.charts.helpers({
 
-    showVotings: function() {
+    showVotings: function () {
         return Session.get("showVotings");
+    },
+
+    showSearch:
+    function () {
+        return Session.get("showSearch");
     },
 });
 

@@ -32,11 +32,13 @@ Template.songItems.helpers({
         return false;
     },
 
-    getColor(pos){
-        var votingPerYear = Votings.findOne();
+     getColor(pos){
+
+        return "";
+        /* var votingPerYear = Votings.findOne();
         if(votingPerYear[Session.get("currentYear")] && votingPerYear[Session.get("currentYear")]["top1"] && votingPerYear[Session.get("currentYear")]["top1"] === ""+pos){
             return "gold";
-        }
+        } */
     }
 });
 

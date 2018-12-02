@@ -25,3 +25,5 @@ reactive-dict
 session
 http
 themeteorchef:bert
+kadira:flow-router
+kadira:blaze-layout

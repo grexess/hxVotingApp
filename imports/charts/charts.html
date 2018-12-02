@@ -1,16 +1,14 @@
 <template name="charts">
-
-        {{> header}}
-
         <div class="content">
+    {{> yearSelection}}
 
-                {{> yearSelection}}
-
-                {{#if showVotings}}
-                {{> votingItems}}
-                {{else}}
-                {{> songItems}}
-                {{/if}}
-
-        </div>
+    {{#if showSearch}}
+    {{> search}}
+    {{else}}
+    {{#if showVotings}}
+    {{> votingItems}}
+    {{else}}
+    {{> songItems}}
+    {{/if}}{{/if}}
+    </div>
 </template>

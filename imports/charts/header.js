@@ -1,5 +1,21 @@
 import './header.html';
 
+/*import login templates */
+import '../login/login.js';
+import '../login/custom.js';
+import '../login/customInput.js';
+import '../login/customSubmit.js';
+
+Template['override-at_form'].replaces('atForm');
+Template['override-atTextInput'].replaces('atTextInput');
+Template['override-atPwdFormBtn'].replaces('atPwdFormBtn');
+
+Accounts.onLogin(function (user) {
+    if (user.type === "password") {
+      $('#id01').hide();
+    }
+  })
+
 Template.header.helpers({
 
     userEmail: function (user) {
@@ -10,7 +26,7 @@ Template.header.helpers({
     }
 });
 
-Template.charts.events({
+Template.header.events({
 
     /* Menu opend */
     'click #menuOpen'(event, instance) {
@@ -19,6 +35,10 @@ Template.charts.events({
         x.style.fontSize = "40px";
         x.style.paddingTop = "10%";
         x.style.display = "block";
+    },
+
+    'click #searchOpen'(event, instance) {
+        FlowRouter.go('Search.open', { });
     },
 
     /* Menu closed */
