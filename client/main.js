@@ -8,6 +8,7 @@ import './main.html';
 
 
 FlowRouter.route('/', {
+  name: 'Go.home',
   action: function() {
     BlazeLayout.render('App_body', { top: "header", main: "charts" });
   }

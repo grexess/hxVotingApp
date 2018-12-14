@@ -1,9 +1,5 @@
 import './coverselection.html';
 
-import {
-    Charts
-} from '../../collections/charts.js';
-
 Template.coverselection.events({
 
     'ended #previewAudio'() {
