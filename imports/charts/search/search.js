@@ -34,23 +34,8 @@ Template.search.events({
     /* play song */
     'click .playPreview': function (event) {
         event.preventDefault();
-        let song = event.currentTarget.dataset.target;
-        getPreviewURL(song);
-        var url = Session.get('previewURL');
-        var audio = $('audio[data-target="' + song + '"]')[0];
-        $(audio).attr('src', url);
-
-        if(!Session.get('isPlaying')){
-            audio.play();
-            Session.set('isPlaying', true);
-            $(event.currentTarget).removeClass('fa-play');
-            $(event.currentTarget).addClass('fa-pause');
-           }else{
-            audio.pause();
-            Session.set('isPlaying', false);
-            $(event.currentTarget).removeClass('fa-pause');
-            $(event.currentTarget).addClass('fa-play');
-           }
+        let song = $(event.currentTarget).find('.fa-lg')[0].dataset.target;
+        getPreviewURL($(event.currentTarget).find('.fa-lg')[0]);
     },
 
     'click #closeSearch': function (){
@@ -59,7 +44,9 @@ Template.search.events({
 
 })
 
-function getPreviewURL(song) {
+function getPreviewURL(elem) {
+
+    let song = elem.dataset.target;
 
     var url = "https://itunes.apple.com/search?term=" + encodeURI(song) + "&limit=1";
 
@@ -75,6 +62,21 @@ function getPreviewURL(song) {
         },
         success: function (data) {
             Session.set('previewURL', data.results[0].previewUrl);
+            var url = Session.get('previewURL');
+            var audio = $('audio[data-target="' + song + '"]')[0];
+            $(audio).attr('src', url);
+    
+            if(!Session.get('isPlaying')){
+                audio.play();
+                Session.set('isPlaying', true);
+                $(elem).removeClass('fa-play');
+                $(elem).addClass('fa-pause');
+               }else{
+                audio.pause();
+                Session.set('isPlaying', false);
+                $(elem).removeClass('fa-pause');
+                $(elem).addClass('fa-play');
+               }
         },
         error: function (error) {
             console.log('E400');
