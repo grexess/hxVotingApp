@@ -22,6 +22,11 @@ Template.yearSelection.helpers({
         return Session.get("currentYear");
     },
 
+    bgcolor(year){
+        var aColorCodes= ["#FFC09F","#B5FED9","#98CBB4","#D4EAC8","#E7EFC5","#F2E7C9","#BBE5ED","#EDA2C0","#ADB9E3","#CAD49D"];
+        return aColorCodes[year.substring(2, 3)];
+    },
+
     votingCount() {
 
         Meteor.call('getVotingCount', Session.get("currentYear"), function (err, response) {

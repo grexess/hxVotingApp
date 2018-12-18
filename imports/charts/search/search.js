@@ -47,7 +47,7 @@ Template.search.events({
 function getPreviewURL(elem) {
 
     let song = elem.dataset.target;
-
+debugger;
     var url = "https://itunes.apple.com/search?term=" + encodeURI(song) + "&limit=1";
 
     $.ajax({
