@@ -14,24 +14,44 @@ db.charts.find( { $text: { $search: "ABBA" } } , {songs:0})
 db.charts.aggregate([{$match: {'songs.interpret': 'ABBA'}},{$project: {songs: {$filter: {input: '$songs', as: 'shape', cond: {$eq: ['$$shape.interpret', 'ABBA']}}}, year: 1, _id: 0}}])
 
 
-var charts = {};
-var year;
-var i;
 
-for (i = 1930; i < 1933; i++) { 
-  console.log(i);
- 
-  $.get( "http://ua.canna.to/canna/charts.php?chart=jc&date="+ i, function( data ) {
-    year = [];
-    var aTr = $($(data).find('table > tbody')[1]).find('tr');
-    for (j = 1; j < aTr.length; j++) {
-      var song = {};
-      song.interpret= $($(aTr[j]).find('td')[0]).find('b')[0].innerHTML;
-      song.title = $($(aTr[j]).find('td')[1]).find('b')[0].innerHTML;
-      year.push(song);
-    }
-    console.log('inner' + i);
-    charts[i+''] = year; 
-});
+//http://ua.canna.to/canna/charts.php?chart=jc&date=1930
+
+$(function() {
+  // Handler for .ready() called.
+  
+  var all = {};
+  
+var i= 1956; 
+  for (i = 1956; i < 2016; i++) { 
+  
+  var url = "http://ua.canna.to/canna/charts.php?chart=jc&date=" + i;
+  console.log('Requesting:' + url);
+  
+  jQuery.ajax({
+        url: url,
+        async: false,
+        success: function (result) {
+          
+            if (result.isOk == false){ console(result.message);}else{
+              console.log('success');
+              var year = [];
+              var tbody = $(result).find('table > tbody')[1];
+              var aTR = $(tbody).find('tr');
+              
+              var song;
+              for (var j = 1; j < aTR.length; j++) {
+                song = {"pos": j, "title":$($(aTR[j]).find('td')[2]).find('b')[0].textContent, "interpret": $($(aTR[j]).find('td')[1]).find('b')[0].textContent}
+                year.push(song);
+              }
+              console.log(year);
+              all[""+ i]=year;
+            }
+        },
+    });
 }
-console.log(charts);
+  
+  console.log(JSON.stringify(all));
+  
+});
+
