@@ -1,3 +1,4 @@
+import '/imports/startup/both';
 
 /* Import Template Scripts */
 import '../imports/charts/header.js';

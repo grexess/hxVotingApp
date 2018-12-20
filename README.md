@@ -13,7 +13,10 @@ db.charts.find( { $text: { $search: "ABBA" } } , {songs:0})
 ###display year and song there interpret eqal ...
 db.charts.aggregate([{$match: {'songs.interpret': 'ABBA'}},{$project: {songs: {$filter: {input: '$songs', as: 'shape', cond: {$eq: ['$$shape.interpret', 'ABBA']}}}, year: 1, _id: 0}}])
 
-
+### CollectionFS
+meteor add cfs:standard-packages
+meteor add cfs:filesystem
+meteor add cfs:access-point
 
 //http://ua.canna.to/canna/charts.php?chart=jc&date=1930
 

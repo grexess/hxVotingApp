@@ -1,3 +1,5 @@
+import '/imports/startup/both';
+
 import { Meteor } from 'meteor/meteor';
 
 import {
@@ -7,6 +9,10 @@ import {
 import {
   Charts
 } from '../imports/collections/charts.js';
+
+Images = new FS.Collection("images", {
+  stores: [new FS.Store.FileSystem("images", {path: "../../../../../covers"})]
+});
 
 Meteor.publish('charts', function () {
   return Charts.find();

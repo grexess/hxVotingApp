@@ -28,3 +28,6 @@ themeteorchef:bert
 kadira:flow-router
 kadira:blaze-layout
 email
+cfs:standard-packages
+cfs:filesystem
+cfs:access-point
