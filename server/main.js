@@ -10,16 +10,14 @@ import {
   Charts
 } from '../imports/collections/charts.js';
 
-Images = new FS.Collection("images", {
-  stores: [new FS.Store.FileSystem("images", {path: "../../../../../covers"})]
-});
-
 Meteor.publish('charts', function () {
   return Charts.find();
 });
 
 Meteor.publish('votings', function () {
+  if (Meteor.user()) {
   return Votings.find({ votedBy: Meteor.user().emails[0].address });
+  }
 });
 
 
@@ -150,3 +148,75 @@ Meteor.methods({
   }
 
 })
+
+
+AccountsTemplates.configure({
+  // Behavior
+  confirmPassword: true,
+  enablePasswordChange: true,
+  forbidClientAccountCreation: false,
+  overrideLoginErrors: true,
+  sendVerificationEmail: true,
+  enforceEmailVerification: true,
+  lowercaseUsername: false,
+  focusFirstInput: true,
+
+  // Appearance
+  showAddRemoveServices: false,
+  showForgotPasswordLink: false,
+  showLabels: true,
+  showPlaceholders: true,
+  showResendVerificationEmailLink: false,
+
+  // Client-side Validation
+  continuousValidation: false,
+  negativeFeedback: false,
+  negativeValidation: true,
+  positiveValidation: true,
+  positiveFeedback: true,
+  showValidating: true,
+
+  // Privacy Policy and Terms of Use
+  privacyUrl: 'privacy',
+  termsUrl: 'terms-of-use',
+
+  // Redirects
+  homeRoutePath: '/home',
+  redirectTimeout: 4000,
+
+  // Hooks
+  onLogoutHook: myLogoutFunc,
+  onSubmitHook: mySubmitFunc,
+  preSignUpHook: myPreSubmitFunc,
+  postSignUpHook: myPostSubmitFunc,
+
+  // Texts
+  texts: {
+    button: {
+        signUp: "Register Now!"
+    },
+    socialSignUp: "Register",
+    socialIcons: {
+        "meteor-developer": "fa fa-rocket"
+    },
+    title: {
+        forgotPwd: "Recover Your Password"
+    },
+  },
+});
+
+function myLogoutFunc(){
+  console.log('onLogoutHook');
+}
+
+function mySubmitFunc(){
+  console.log('mySubmitFunc');
+}
+
+function myPreSubmitFunc(){
+  console.log('myPreSubmitFunc');
+}
+
+function myPostSubmitFunc(){
+  console.log('myPostSubmitFunc');
+}

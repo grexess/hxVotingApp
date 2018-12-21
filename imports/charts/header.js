@@ -16,6 +16,26 @@ Accounts.onLogin(function (user) {
     }
   })
 
+
+  Template.header.created = function() {
+  if (Accounts._verifyEmailToken) {
+    Accounts.verifyEmail(Accounts._verifyEmailToken, function(err) {
+      if (err != null) {
+        if (err.message = 'Verify email link expired [403]') {
+          var message ='Sorry this verification link has expired.';
+          console.log(message);    
+          alertBox = Blaze.renderWithData(Template.Alert, {message: message}, $("body").get(0));
+        }
+      } else {
+        var message = "Thank you! Your email address has been confirmed.";
+        console.log(message);
+        //Bert.alert( 'Welcome!', 'success' );
+        alertBox = Blaze.renderWithData(Template.Alert, {message: message}, $("body").get(0));
+      }
+    });
+  }
+  };
+
 Template.header.helpers({
 
     userEmail: function (user) {

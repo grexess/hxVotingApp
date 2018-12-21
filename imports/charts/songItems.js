@@ -26,7 +26,7 @@ Template.songItems.helpers({
     setChecked(pos, top){
 
         var votingPerYear = Votings.findOne();
-        if(votingPerYear[Session.get("currentYear")] && votingPerYear[Session.get("currentYear")][top] && votingPerYear[Session.get("currentYear")][top] === ""+pos){
+        if(votingPerYear && votingPerYear[Session.get("currentYear")] && votingPerYear[Session.get("currentYear")][top] && votingPerYear[Session.get("currentYear")][top] === ""+pos){
             return true;
         }
         return false;
