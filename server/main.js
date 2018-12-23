@@ -10,16 +10,31 @@ import {
   Charts
 } from '../imports/collections/charts.js';
 
+import {
+  Images
+} from '../imports/collections/images.js';
+
 Meteor.publish('charts', function () {
   return Charts.find();
 });
 
-Meteor.publish('votings', function () {
-  if (Meteor.user()) {
-  return Votings.find({ votedBy: Meteor.user().emails[0].address });
-  }
+Meteor.publish('images', function () {
+  console.log('Images published');
+  return Images.find();
 });
 
+Meteor.publish('votings', function () {
+  if (Meteor.user()) {
+    return Votings.find({ votedBy: Meteor.user().emails[0].address });
+  }
+});
+Images.allow({
+  'insert': function (userId, doc) {
+    /* user and doc checks ,
+    return true to allow insert */
+    return true;
+  }
+})
 
 Votings.allow({
   'insert': function (userId, doc) {
@@ -65,6 +80,49 @@ Meteor.startup(() => {
 
 Meteor.methods({
 
+  /* check if for the song a cover exists. Otherwise store the image */
+  /* 'storeImage'(obj) {
+    console.log('storeImage started');
+    debugger;
+    try {
+      //var img = Images.findOne({ "original.name": obj.name });
+      var img = Images.findOne();
+      if (img) {
+        //exist;
+      } else {
+        HTTP.call('GET', obj.url, {
+          npmRequestOptions: {
+            encoding: null
+          }, function(error, result) {
+            debugger;
+            if (error) {
+              console.log(error);
+            }
+            if (result) {
+              var newImg = new FS.File();
+
+              var binaryImg = result.content;
+
+              newImg.attachData(binaryImg, { type: 'utf8' });
+              newImg.name();
+              Images.insert(newImg, function (error, fileObj) {
+                if (error) {
+                  console.log('E100:' + error);
+                } else {
+                  return newImg.collectionName + '-' + newImg._id + '-' + newImg.original.name
+                }
+              }
+              )
+            }
+          }
+        });
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }, */
+
   'getVotingCount'(year) {
     var query = Votings.find({ [year]: { $exists: true } }, { fields: { [year]: 1, "votedBy": 1, "_id": 0 } }).fetch();
     return query.length;
@@ -92,7 +150,7 @@ Meteor.methods({
         //var song = top100ofYear[votedSongOnX - 1];
         //var songImg = year + "-" + song.pos + ".jpg";
         /*  var img = Images.findOne({ "original.name": songImg });
- 
+   
          if (img) {
            song.img = "/covers/" + img.collectionName + '-' + img._id + '-' + img.original.name;
          } else {
@@ -124,13 +182,13 @@ Meteor.methods({
         } else {
           switch (topX) {
             case "top1":
-              results[votedSongOnX] = { "score": 5, song: top100ofYear[votedSongOnX -1] };
+              results[votedSongOnX] = { "score": 5, song: top100ofYear[votedSongOnX - 1] };
               break;
             case "top2":
-              results[votedSongOnX] = { "score": 3, song: top100ofYear[votedSongOnX -1] };
+              results[votedSongOnX] = { "score": 3, song: top100ofYear[votedSongOnX - 1] };
               break;
             case "top3":
-              results[votedSongOnX] = { "score": 1, song: top100ofYear[votedSongOnX -1] };
+              results[votedSongOnX] = { "score": 1, song: top100ofYear[votedSongOnX - 1] };
               break;
           }
         }
@@ -193,30 +251,30 @@ AccountsTemplates.configure({
   // Texts
   texts: {
     button: {
-        signUp: "Register Now!"
+      signUp: "Register Now!"
     },
     socialSignUp: "Register",
     socialIcons: {
-        "meteor-developer": "fa fa-rocket"
+      "meteor-developer": "fa fa-rocket"
     },
     title: {
-        forgotPwd: "Recover Your Password"
+      forgotPwd: "Recover Your Password"
     },
   },
 });
 
-function myLogoutFunc(){
+function myLogoutFunc() {
   console.log('onLogoutHook');
 }
 
-function mySubmitFunc(){
+function mySubmitFunc() {
   console.log('mySubmitFunc');
 }
 
-function myPreSubmitFunc(){
+function myPreSubmitFunc() {
   console.log('myPreSubmitFunc');
 }
 
-function myPostSubmitFunc(){
+function myPostSubmitFunc() {
   console.log('myPostSubmitFunc');
 }

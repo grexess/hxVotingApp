@@ -7,6 +7,8 @@ import {
 } from '../collections/charts.js';
 import { Votings } from '../collections/votings';
 
+import { Images } from '../collections/images';
+
 Template.songItems.onCreated(function () {
     //MiniMongo already loaded in parent template
 });
@@ -23,22 +25,33 @@ Template.songItems.helpers({
         return Session.get('imageOverlay');
     },
 
-    setChecked(pos, top){
+    setChecked(pos, top) {
 
         var votingPerYear = Votings.findOne();
-        if(votingPerYear && votingPerYear[Session.get("currentYear")] && votingPerYear[Session.get("currentYear")][top] && votingPerYear[Session.get("currentYear")][top] === ""+pos){
+        if (votingPerYear && votingPerYear[Session.get("currentYear")] && votingPerYear[Session.get("currentYear")][top] && votingPerYear[Session.get("currentYear")][top] === "" + pos) {
             return true;
         }
         return false;
     },
 
-     getColor(pos){
+    getColor(pos) {
 
         return "";
         /* var votingPerYear = Votings.findOne();
         if(votingPerYear[Session.get("currentYear")] && votingPerYear[Session.get("currentYear")]["top1"] && votingPerYear[Session.get("currentYear")]["top1"] === ""+pos){
             return "gold";
         } */
+    },
+    showCoverImage(pos) {
+
+        var img = Images.findOne({ "name": Session.get("currentYear") + "-" + (pos -1) + ".jpg" });
+
+        if (img) {
+            return img.url;
+         } else {
+            return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=";
+        }
+
     }
 });
 
@@ -135,12 +148,40 @@ function getCovers() {
                 }
             });
             Session.set('coverImages', aImgUrl);
+
+            //check if a cover is already set for this song
+
+            var oImgObj = { url: aImgUrl[0], name: Session.get("currentYear") + "-" + Session.get("currentSong") + ".jpg" };
+            checkForCoverImage(oImgObj);
+            /*  Meteor.call('storeImage',oImgObj , function (err, response) {
+             }); */
+
             Session.set('previewURL', data.results[0].previewUrl);
         },
         error: function (error) {
             Session.set('coverImages', []);
         }
     });
+}
+
+function checkForCoverImage(obj) {
+
+    var img = Images.findOne({ "name": obj.name });
+    if (img) {
+        //exist;
+
+
+    } else {
+        Images.insert({
+            name: obj.name,
+            url: obj.url,
+        }, function (error, result) {
+            if (error) console.log(error); //info about what went wrong
+            if (result) {
+                console.log('Image added');
+            }
+        });
+    }
 }
 
 function buildVoteMessage(year, place, top) {

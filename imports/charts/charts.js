@@ -14,6 +14,7 @@ Template.charts.onCreated(function () {
     //Load MiniMongo
     Meteor.subscribe('charts');
     Meteor.subscribe('votings');
+    Meteor.subscribe('images');
 
     Session.set("votingCount", "0");
     Session.set("currentYear", "2017");
