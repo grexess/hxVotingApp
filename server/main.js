@@ -19,7 +19,6 @@ Meteor.publish('charts', function () {
 });
 
 Meteor.publish('images', function () {
-  console.log('Images published');
   return Images.find();
 });
 

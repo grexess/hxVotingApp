@@ -42,6 +42,7 @@ Template.songItems.helpers({
             return "gold";
         } */
     },
+    
     showCoverImage(pos) {
 
         var img = Images.findOne({ "name": Session.get("currentYear") + "-" + (pos -1) + ".jpg" });
@@ -139,19 +140,24 @@ function getCovers() {
         },
         success: function (data) {
 
-
+            var artistURL = null;
             var aImgUrl = [];
 
             data.results.forEach(function (url) {
                 if (!aImgUrl.includes(url.artworkUrl100)) {
                     aImgUrl.push(url.artworkUrl100);
                 }
+
+                if(!artistURL){
+                    artistURL = url.artistViewUrl;
+                }
+
             });
             Session.set('coverImages', aImgUrl);
 
             //check if a cover is already set for this song
 
-            var oImgObj = { url: aImgUrl[0], name: Session.get("currentYear") + "-" + Session.get("currentSong") + ".jpg" };
+            var oImgObj = { url: aImgUrl[0], artistURL: artistURL, name: Session.get("currentYear") + "-" + Session.get("currentSong") + ".jpg" };
             checkForCoverImage(oImgObj);
             /*  Meteor.call('storeImage',oImgObj , function (err, response) {
              }); */
@@ -170,11 +176,14 @@ function checkForCoverImage(obj) {
     if (img) {
         //exist;
 
-
     } else {
+
+        artistURL = getArtistURL(obj.artistURL);
+
         Images.insert({
             name: obj.name,
             url: obj.url,
+            artist: artistURL
         }, function (error, result) {
             if (error) console.log(error); //info about what went wrong
             if (result) {
@@ -182,6 +191,27 @@ function checkForCoverImage(obj) {
             }
         });
     }
+}
+
+function getArtistURL(url){
+
+    var result = null;
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+        async: false,
+        xhrFields: {
+            withCredentials: false
+        },
+        success: function (data) {
+            result = $(data).find('.we-artist-header').find('img')[0].src;
+        },
+        error: function (error) {
+           
+        }
+    });
+    return result;
 }
 
 function buildVoteMessage(year, place, top) {

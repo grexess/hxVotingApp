@@ -3,33 +3,41 @@
   <div class="overlay"></div>
 
   <div class="modal w3-card-4">
-    <span id="closeImgModal" class="w3-button w3-display-topright">&times;</span>
-    <div class="w3-panel w3-center">
-       <div>
-         <b>{{interpret}}</b>
-         <br>
-         {{title}}
-       </div>
-       <hr>
+    <span id="closeImgModal" class="w3-button w3-display-topright" style="margin:2px">&times;</span>
+
+    <div id="playPreview" class="w3-panel w3-center">
+      <div class="w3-row">
+        <div class="w3-container w3-quarter">
+          <img class="w3-circle w3-left" src="{{artist}}" style="width: 100px">
+        </div>
+        <div class="w3-container w3-half">
+          <div class="w3-panel w3-center w3-center">
+            <div>
+              <b>{{interpret}}</b>
+              <br>
+              {{title}}
+            </div>
+          </div>
+        </div>
+        <div class="w3-container w3-quarter">
+            <div class="w3-panel w3-center">
+                <audio preload="auto" id="previewAudio" src="{{previewURL}}">
+                  Your browser does not support the audio element.
+                </audio>
+                <i id="playIcn" class="fa fa-play fa-3x" aria-hidden="true"></i>
+              </div>
+        </div>
       </div>
-    <div class="w3-panel w3-center">
-      <audio preload="auto" id="previewAudio" src="{{previewURL}}">
-        Your browser does not support the audio element.
-      </audio>
-      <i id="playPreview" class="fa fa-play fa-3x" aria-hidden="true"></i>
-    </div>
-    <div class="w3-panel">
-      <hr>
     </div>
 
-    <div class="w3-panel">
-      <div class="w3-row">
-        {{#each value in coverUrl}}
-        <div class="w3-col s12 m4 l2 w3-center w3-padding">
-          <img src="{{value}}" class="w3-round" alt="cover">
-        </div>
-        {{/each}}
+    <div class="w3-panel" style="margin-bottom:64px">
+        <hr>
       </div>
+
+    <div class="w3-content w3-display-container">
+      {{#each value in coverUrl}}
+      <img class="w3-display-middle mySlides" src="{{value}}" style="max-width:100px">
+      {{/each}}
     </div>
   </div>
 
