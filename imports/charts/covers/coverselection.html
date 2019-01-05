@@ -8,7 +8,7 @@
     <div id="playPreview" class="w3-panel w3-center">
       <div class="w3-row">
         <div class="w3-container w3-quarter">
-          <img class="w3-circle w3-left" src="{{artist}}" style="width: 100px">
+          <img class="w3-circle w3-center" src="{{artist}}" style="width: 100px">
         </div>
         <div class="w3-container w3-half">
           <div class="w3-panel w3-center w3-center">
@@ -21,10 +21,12 @@
         </div>
         <div class="w3-container w3-quarter">
             <div class="w3-panel w3-center">
+                {{#if previewURL}}
                 <audio preload="auto" id="previewAudio" src="{{previewURL}}">
                   Your browser does not support the audio element.
                 </audio>
                 <i id="playIcn" class="fa fa-play fa-3x" aria-hidden="true"></i>
+                {{/if}}
               </div>
         </div>
       </div>

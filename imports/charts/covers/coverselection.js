@@ -26,6 +26,10 @@ Template.coverselection.events({
 
     'click #closeImgModal'(event, instance) {
         Session.set('imageOverlay', false);
+        //Session.set('title', false);
+        //Session.set('interpret', false);
+        //Session.set('coverImages', []);
+        //Session.set('previewURL', false);
         clearTimeout(timer);
     },
 

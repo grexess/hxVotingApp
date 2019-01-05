@@ -42,14 +42,14 @@ Template.songItems.helpers({
             return "gold";
         } */
     },
-    
+
     showCoverImage(pos) {
 
-        var img = Images.findOne({ "name": Session.get("currentYear") + "-" + (pos -1) + ".jpg" });
+        var img = Images.findOne({ "name": Session.get("currentYear") + "-" + (pos - 1) + ".jpg" });
 
         if (img) {
-            return img.url;
-         } else {
+            return img.cover;
+        } else {
             return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=";
         }
 
@@ -108,13 +108,7 @@ function alreadyVotedCheck(target) {
         target.checked = false;
         return true;
     }
-
     return false;
-
-    //set previous checkbox
-    //var valueStr = year + "-" + tops[year][event.currentTarget.name];
-    //$('input[value="' + valueStr + '"][name="' + event.currentTarget.name + '"]')[0].checked = true;
-
 }
 
 function getCovers() {
@@ -148,7 +142,7 @@ function getCovers() {
                     aImgUrl.push(url.artworkUrl100);
                 }
 
-                if(!artistURL){
+                if (!artistURL) {
                     artistURL = url.artistViewUrl;
                 }
 
@@ -159,10 +153,15 @@ function getCovers() {
 
             var oImgObj = { url: aImgUrl[0], artistURL: artistURL, name: Session.get("currentYear") + "-" + Session.get("currentSong") + ".jpg" };
             checkForCoverImage(oImgObj);
+            checkForArtistImage(oImgObj);
             /*  Meteor.call('storeImage',oImgObj , function (err, response) {
              }); */
 
-            Session.set('previewURL', data.results[0].previewUrl);
+            if (data.results[0].previewUrl) {
+                Session.set('previewURL', data.results[0].previewUrl);
+            } else {
+                Session.set('previewURL', null);
+            }
         },
         error: function (error) {
             Session.set('coverImages', []);
@@ -172,18 +171,29 @@ function getCovers() {
 
 function checkForCoverImage(obj) {
 
-    var img = Images.findOne({ "name": obj.name });
-    if (img) {
-        //exist;
+    if (obj.url) {
+
+        var img = Images.findOne({ "name": obj.name });
+        if (img) {
+            //exist;
+            if (img.cover) {
+                //anything already maintained
+            } else {
+
+                var setObject = { "cover": obj.url };
+                Images.update({ _id: img._id }, { $set: setObject }, function (error, result) {
+                    if (error) console.log(error); //info about what went wrong
+                    if (result) {
+                    };
+                });
+            }
+        }
 
     } else {
-
-        artistURL = getArtistURL(obj.artistURL);
-
+        //create new record
         Images.insert({
             name: obj.name,
-            url: obj.url,
-            artist: artistURL
+            cover: obj.url,
         }, function (error, result) {
             if (error) console.log(error); //info about what went wrong
             if (result) {
@@ -193,7 +203,49 @@ function checkForCoverImage(obj) {
     }
 }
 
-function getArtistURL(url){
+function checkForArtistImage(obj) {
+
+    var img = Images.findOne({ "name": obj.name });
+    if (img) {
+        //exist;
+        if (img.artist) {
+            //anything already maintained
+        } else {
+
+            var artistURL = getArtistURL(obj.artistURL);
+
+            if (artistURL) {
+
+                var setObject = { "artist": artistURL };
+                Images.update({ _id: img._id }, { $set: setObject }, function (error, result) {
+                    if (error) console.log(error); //info about what went wrong
+                    if (result) {
+                    };
+                });
+            }
+        }
+    } else {
+
+        var artistURL = getArtistURL(obj.artistURL);
+
+        if (artistURL) {
+
+            Images.insert({
+                name: obj.name,
+                cover: obj.url,
+                artist: artistURL
+            }, function (error, result) {
+                if (error) console.log(error); //info about what went wrong
+                if (result) {
+                    console.log('Image added');
+                }
+            });
+        }
+
+    }
+}
+
+function getArtistURL(url) {
 
     var result = null;
 
@@ -208,7 +260,7 @@ function getArtistURL(url){
             result = $(data).find('.we-artist-header').find('img')[0].src;
         },
         error: function (error) {
-           
+
         }
     });
     return result;
