@@ -1,0 +1,183 @@
+<template name="StartPage">
+
+    <div class="w3-content" style="max-width:1600px">
+
+        <!-- Sidebar -->
+        <div class="w3-sidebar w3-light-grey w3-collapse  w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+            <div class="w3-container w3-center">
+                <div class="sidesquaregridarea">
+                    {{#each songtile}}
+                    <SideSquareGrid>
+                        <div class="w3-display-container w3-round-xlarge zTile">
+                            <div class="w3-display-topright zRight">
+                                <div class="w3-bar">
+                                    <div class="songPos w3-xxlarge"><b>{{pos}}</b></div>
+                                    <div class="rotate w3-large songYear"><b>{{year}}</b></div>
+                                </div>
+                            </div>
+                            <div class="w3-display-bottomleft w3-left-align zLeft">
+                                <span style="font-size:1.1em"><b>{{title}}</b></span><br>
+                                <span style="font-size:0.9em"><b><i>{{interpret}}</i></b></span>
+                            </div>
+                        </div>
+                    </SideSquareGrid>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+
+        <div class="w3-main" style="margin-left:300px">
+            <!-- Header -->
+            <header class="w3-container w3-xlarge w3-padding-24 w3-border-bottom">
+                <h1 class="zFont w3-left"><b>ChartsExplorer</b></h1>
+                <img src="/startpage/images/chartsexplorer.jpg" style="width:65px;" class="w3-round w3-right">
+            </header>
+
+            <div class="w3-container w3-padding-large w3-center">
+                <h4 class="zFont"><b>ENJOY YOUR BEST YEAR OF MUSIC!</b></h4>
+                <p>Ob <b>Fifties</b>, <b>Sixites</b>, das <b>Beste aus den 70igern, 80igern und 90igern</b> oder die <b>aktuellen
+                        Hits</b> dieses Jahrtausends.</p>
+                <p>Wer als Musikfan schwelgt nicht gern in den guten alten Zeiten und durchstöbert die
+                    "Mainstream"-Hitparaden der vergangenen Jahrzehnte.</p>
+            </div>
+
+            <!-- Square Grid -->
+            <div class="w3-container">
+                <div class="squaregridarea">
+                    <SquareGrid>
+                        <div class="item w3-display-container" id="ev" style="background-image: url('{{evurl}}')">
+                            <div class="w3-padding w3-display-topleft itopLeft">Evergreen</div>
+                            <div class="w3-padding w3-display-bottomright w3-round-xxlarge iBottomRight">Wann war
+                                dieses Lied nochmal ein Hit?</div>
+                        </div>
+                        <div class="item w3-display-container" id="oh" style="background-image: url('{{ohurl}}')">
+                            <div class="w3-padding w3-display-topleft itopLeft">OneHitWonder</div>
+                            <div class="w3-padding w3-display-bottomright w3-round-xxlarge iBottomRight">Das soll mal
+                                auf Platz 1 gewesen sein?</div>
+                        </div>
+                        <div class="item w3-display-container" id="ep" style="background-image: url('{{epurl}}')">
+                            <div class="w3-padding w3-display-topleft itopLeft">Oh mein Gott</div>
+                            <div class="w3-padding w3-display-bottomright w3-round-xxlarge iBottomRight">So lang ist
+                                das schon her?</div>
+                        </div>
+                        <div class="item w3-display-container" id="so" style="background-image: url('/img/sounds/cov1.jpg')">
+                            <div class="w3-padding w3-display-topleft itopLeft">&#9839;&#9837;&#9836;&#9834;&#9840;&#9835;</div>
+                            <div class="w3-padding w3-display-bottomright w3-round-xxlarge iBottomRight">Wie klang mein
+                                Lieblingslied nochmal?</div>
+                        </div>
+                    </SquareGrid>
+                </div>
+            </div>
+
+            <div class="w3-container w3-padding-large w3-center">
+                <p>Sicher wirst auch Du von Deiner Vergangheit überwältigt und entdeckst in den Jahrescharts der
+                    deutschen
+                    Hitparaden längst vergessene Perlen wieder.</p>
+                <p>Erforsche die beliebtesten Lieder seit 1930 und reaktiviere den einen oder anderen Ohrwurm aus über
+                    80
+                    Jahren Musikgeschichte wieder. Lass nochmal Deine Erinnerungen aufleben oder erweitere einfach Dein
+                    enzyklopädisches Wissen über Discographien.</p>
+            </div>
+
+            <div class="w3-container w3-padding w3-center">
+                <div class="w3-card w3-white w3-padding">
+                    <p>Hier könnt Ihr schon mal schauen, ob und wann es Eure Favoriten in die TOPs geschafft haben:</p>
+                    <div class="w3-row w3-section">
+                        <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-user"></i></div>
+                        <div class="w3-rest">
+                            <input class="w3-input w3-border" name="last" type="text" placeholder="Last Name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w3-container w3-padding w3-center">
+                <p>Mit der dem ChartsExplorer aus dem Google Play
+                    Store kann das auch jeder von Euch super einfach tun, vorausgesetzt allerdings, Ihr habt eine
+                    Android-Nervensäge.</p>
+                <p>Mit unseren selbst erstellten Reihenfolgen aus verschiedensten Quellen erheben wir keinen
+                    Anspruch
+                    auf irgendwelche <i>offizielle Korrektheit.</i>.</p>
+                <p>Bezüglich Datenschutz: Die App speichert keinerlei individuellen Daten.</p>
+            </div>
+
+
+            <!-- Apps Row -->
+            <div class="w3-row-padding w3-padding-16">
+
+                <div class="w3-half w3-margin-bottom">
+                    <div class="w3-card w3-white">
+                        <div class="w3-center w3-padding">
+                            <h3 class="zFont w3-left">ChartsExplorer-Demo</h3>
+                            <a class="w3-right" href="https://play.google.com/store/apps/details?id=de.chartsexplorer.chartsexplorer"
+                                target="_blank">
+                                <img src="/startpage/images/chartsexplorerdemo.jpg" alt="Snow" style="width:65px">
+                            </a>
+                        </div>
+                        <div class="w3-container">
+                            <p>Völlig werbefrei und ohne InApp-Käufe!</p>
+                            <ul>
+                                <li>Anzeige der Hitparaden ab 1930</li>
+                                <li>Suche nach Interpret oder Song-Titeln in allen Jahreshitparaden</li>
+                            </ul>
+                            <p>Wenn die Suche in öffentlichen APIs zu dem Lied etwas hergibt, kannst Du auch</p>
+                            <ul>
+                                <li>in den Song hineinhören</li>
+                                <li>ein Künstlerbild sowie das Song-Cover anschauen</li>
+                            </ul>
+
+                            <p>Um etwas Motivation für die Vollversion zu geben, ist jeder zweite Song in den
+                                Jahrescharts der
+                                Demoversion der App nicht sichtbar.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w3-half w3-margin-bottom">
+                    <div class="w3-card w3-white">
+                        <div class="w3-center w3-padding">
+                            <h3 class="zFont w3-left">ChartsExplorer</h3>
+                            <a class="w3-right" href="https://play.google.com/store/apps/details?id=de.chartsexplorer.chartsexplorer"
+                                target="_blank">
+                                <img src="/startpage/images/chartsexplorer.jpg" alt="Snow" style="width:65px">
+                            </a>
+                        </div>
+                        <div class="w3-container">
+                            <h3><b>& HONOR THE EFFORT</b></h3>
+                            <p>Wir haben schon viel Zeit und Mühen investiert, um den ChartsExplorer online zu
+                                bringen.</p>
+                            <p>Vielleicht mag dies der eine oder andere honorieren und die Vollversion kaufen.</p>
+                            <p>Wir würden uns freuen und Ihr habt natürlich keine Einschränkungen mehr!</p>
+                            <p><b>1,49€</b> - dafür bekommt man ja nicht mal was im Biergarten ...</p>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="w3-container w3-center">
+                <div class="w3-container w3-card w3-white">
+                    <div class="w3-container">
+                        <h5 class="w3-opacity"><b></b></h5>
+                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Android App</h6>
+                        <a href="https://play.google.com/store/search?q=chartsexplorer&c=apps" target="_blank">
+                            <p>Hier kannst Du die Android App aus dem Google Play Store installieren ...
+                            </p>
+                            <img src="/startpage/images/google-play-badge.png" alt="Google-Badge" style="width:25%">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="w3-center w3-padding-32">
+                <div class="w3-bar">
+                    <a href="/impressum" class="w3-bar-item w3-button w3-padding"><i class="fas fa-mail-bulk w3-margin-right"></i>IMPRESSUM</a>
+                    <a href="/privacy" class="w3-bar-item w3-button w3-padding"><i class="fa fas fa-user-secret w3-margin-right"></i>DATENSCHUTZ</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+</template>

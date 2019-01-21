@@ -4,6 +4,11 @@ import {
     Charts
 } from '../collections/charts.js';
 
+/* zbackup */
+import {
+    ChartswithID
+} from '../collections/chartswithid.js';
+
 Tracker.autorun(function () {
     var sessionVal1 = Session.get("votingCount");
     //var sessionVal21 = Session.get("showVotings");
@@ -15,6 +20,18 @@ Tracker.autorun(function () {
 
 Template.yearSelection.helpers({
     charts() {
+
+        /* zbackup */
+        /* debugger;
+        var x = ChartswithID.find().fetch();
+
+        var jsonObject = new Object();
+        x.forEach(function (value) {
+            jsonObject[value.year] = value.songs;
+        });
+
+        console.log(JSON.stringify(jsonObject));
+ */
         return Charts.find({}, { sort: { year: 'desc' } });
     },
 
@@ -22,8 +39,8 @@ Template.yearSelection.helpers({
         return Session.get("currentYear");
     },
 
-    bgcolor(year){
-        var aColorCodes= ["#FFC09F","#B5FED9","#98CBB4","#D4EAC8","#E7EFC5","#F2E7C9","#BBE5ED","#EDA2C0","#ADB9E3","#CAD49D"];
+    bgcolor(year) {
+        var aColorCodes = ["#FFC09F", "#B5FED9", "#98CBB4", "#D4EAC8", "#E7EFC5", "#F2E7C9", "#BBE5ED", "#EDA2C0", "#ADB9E3", "#CAD49D"];
         return aColorCodes[year.substring(2, 3)];
     },
 

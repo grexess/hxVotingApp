@@ -1,6 +1,7 @@
 import '/imports/startup/both';
 
 /* Import Template Scripts */
+import '../imports/startPage/startpage.js';
 import '../imports/charts/header.js';
 import '../imports/charts/charts.js';
 import '../imports/charts/search/search.js';
@@ -12,8 +13,14 @@ import '../imports/common/about.js'
 
 import './main.html';
 
-
 FlowRouter.route('/', {
+  name: 'Go.home',
+  action: function() {
+    BlazeLayout.render('HomePage');
+  }
+});
+
+FlowRouter.route('/web', {
   name: 'Go.home',
   action: function() {
     BlazeLayout.render('App_body', { top: "header", main: "charts" });

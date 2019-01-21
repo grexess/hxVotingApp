@@ -13,6 +13,7 @@ Template.charts.onCreated(function () {
 
     //Load MiniMongo
     Meteor.subscribe('charts');
+    Meteor.subscribe('chartswithid');
     Meteor.subscribe('votings');
     Meteor.subscribe('images');
 
@@ -21,6 +22,7 @@ Template.charts.onCreated(function () {
     Session.set("imageOverlay", false);
     Session.set("showVotings", false);
     Session.set("showSearch", false);
+
 });
 
 Template.charts.helpers({
